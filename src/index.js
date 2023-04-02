@@ -1,7 +1,7 @@
 import Notiflix from 'notiflix';
 import allPictures from './js/allPictures';
-// import SimpleLightbox from 'simplelightbox';
-// import 'simplelightbox/dist/simple-lightbox.min.css';
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 import './css/style.css';
 let page = 1;
 let per_page = 40;
