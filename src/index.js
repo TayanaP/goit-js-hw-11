@@ -7,6 +7,7 @@ let page = 1;
 let per_page = 40;
 let currentHits = 0;
 let query = '';
+let expectedPage = 1;
 
 const formSearch = document.querySelector('.search-form');
 const galleryEl = document.querySelector('.gallery');
@@ -62,27 +63,34 @@ async function onSearch(e) {
   e.preventDefault();
   galleryEl.innerHTML = '';
   const elements = formSearch.elements;
-  query = elements.searchQuery.value.trim();
+  query = elements.searchQuery.value.trim().toLowerCase();
+  page = 1;
+  currentHits = 0;
+  expectedPage = 1;
+  buttonLoad.classList.add('is-hidden');
 
-  const response = await fetchImages(query, page, per_page);
+  const response = await fetchImages(query, page, per_page, expectedPage);
   if (!response.hits.length) {
     Notiflix.Notify.failure(
       'Sorry, there are no images matching your search query. Please try again.'
     );
     buttonLoad.classList.add('is-hidden');
-    return;
   }
   renderCardImage(response.hits);
   buttonLoad.style.display = 'block';
-  page += 1;
+  expectedPage = page + 1;
 }
 
 async function onLoadMore() {
   page += 1;
-  const response = await fetchImages(query, page, per_page);
+  const response = await fetchImages(query, page, per_page, expectedPage);
+  if (page !== expectedPage) {
+    return;
+  }
   renderCardImage(response.hits);
   lightbox.refresh();
   currentHits += response.hits.length;
+  expectedPage = page + 1;
 
   if (currentHits >= response.totalHits) {
     Notiflix.Notify.failure(
@@ -90,4 +98,5 @@ async function onLoadMore() {
     );
     buttonLoad.classList.add('is-hidden');
   }
+  expectedPage = page + 1;
 }
