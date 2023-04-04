@@ -5,6 +5,8 @@ import './css/style.css';
 
 let page = 1;
 let per_page = 40;
+let currentHits = 0;
+let query = '';
 
 const formSearch = document.querySelector('.search-form');
 const galleryEl = document.querySelector('.gallery');
@@ -60,7 +62,7 @@ async function onSearch(e) {
   e.preventDefault();
   galleryEl.innerHTML = '';
   const elements = formSearch.elements;
-  query = elements.searchQuery.value;
+  query = elements.searchQuery.value.trim();
 
   const response = await fetchImages(query, page, per_page);
   if (!response.hits.length) {
