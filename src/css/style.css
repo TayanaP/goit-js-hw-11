@@ -78,7 +78,7 @@ body {
     background-color: rgb(185, 224, 228);
   }
 
-   .load-more.is-hidden{
+    .load-more{
     display: none;
   } 
   

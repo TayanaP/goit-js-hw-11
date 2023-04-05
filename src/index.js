@@ -67,14 +67,14 @@ async function onSearch(e) {
   page = 1;
   currentHits = 0;
   expectedPage = 1;
-  buttonLoad.classList.add('is-hidden');
+  buttonLoad.style.display = 'none';
 
   const response = await fetchImages(query, page, per_page, expectedPage);
   if (!response.hits.length) {
     Notiflix.Notify.failure(
       'Sorry, there are no images matching your search query. Please try again.'
     );
-    buttonLoad.classList.add('is-hidden');
+    buttonLoad.style.display = 'none';
   }
   renderCardImage(response.hits);
   buttonLoad.style.display = 'block';
@@ -92,12 +92,12 @@ async function onLoadMore() {
     Notiflix.Notify.failure(
       'We are sorry, but you have reached the end of search results.'
     );
-    buttonLoad.classList.add('is-hidden');
+    buttonLoad.style.display = 'none';
   } else if (response.hits.length === 0) {
     Notiflix.Notify.failure(
       'We are sorry, but you have reached the end of search results'
     );
-    buttonLoad.classList.add('is-hidden');
+    buttonLoad.style.display = 'none';
     return;
   } else {
     renderCardImage(response.hits);
