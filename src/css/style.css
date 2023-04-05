@@ -9,6 +9,7 @@ body {
   text-align: center;
 }
 
+
 .search-form {
   position: fixed;
   top: 0;
@@ -77,10 +78,14 @@ body {
     background-color: rgb(185, 224, 228);
   }
 
-  .load-more{
+   .load-more{
     display: none;
   } 
   
+.is-hidden {
+  display: none;
+}
+
   .gallery {
     display: flex;
     flex-wrap: wrap;

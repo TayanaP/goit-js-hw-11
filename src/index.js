@@ -87,16 +87,22 @@ async function onLoadMore() {
   if (page !== expectedPage) {
     return;
   }
-  renderCardImage(response.hits);
-  lightbox.refresh();
   currentHits += response.hits.length;
-  expectedPage = page + 1;
-
   if (currentHits >= response.totalHits) {
     Notiflix.Notify.failure(
       'We are sorry, but you have reached the end of search results.'
     );
     buttonLoad.classList.add('is-hidden');
+  } else if (response.hits.length === 0) {
+    Notiflix.Notify.failure(
+      'We are sorry, but you have reached the end of search results'
+    );
+    buttonLoad.classList.add('is-hidden');
+    return;
+  } else {
+    renderCardImage(response.hits);
+    lightbox.refresh();
+    buttonLoad.style.display = 'block';
+    expectedPage = page + 1;
   }
-  expectedPage = page + 1;
 }
